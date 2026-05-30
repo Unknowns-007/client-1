@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../context/AuthContext'
 import toast from 'react-hot-toast'
 import { Flame, Lock, Mail, Eye, EyeOff } from 'lucide-react'
 
@@ -23,26 +23,26 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center px-4 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(220,38,38,0.12),transparent_70%)]" />
+    <div className="min-h-screen bg-[#faf7f0] flex items-center justify-center px-4 relative overflow-hidden">
+      {/* Background radial highlight */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(128,0,0,0.06),rgba(212,175,55,0.03),transparent_70%)]" />
 
       <div className="w-full max-w-md relative z-10">
         {/* Logo */}
         <div className="text-center mb-10">
-          <div className="inline-flex w-16 h-16 bg-gradient-to-br from-tvk-red to-tvk-yellow rounded-2xl items-center justify-center mb-4 shadow-2xl shadow-tvk-red/30">
+          <div className="inline-flex w-16 h-16 bg-gradient-to-br from-tvk-red to-tvk-yellow rounded-2xl items-center justify-center mb-4 shadow-xl border border-tvk-yellow/30">
             <Flame size={30} className="text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white">TVK Staff Portal</h1>
-          <p className="text-gray-500 text-sm mt-1">Sign in to access the administrative dashboard</p>
+          <h1 className="text-2xl font-black text-gray-800">த.வெ.க ஊழியர் தளம் | TVK Staff Portal</h1>
+          <p className="text-gray-500 font-medium text-sm mt-1">நிர்வாகக் கட்டுப்பாட்டுப் பலகத்தை அணுக உள்நுழையவும். Sign in to access the administrative dashboard.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="card space-y-5">
+        <form onSubmit={handleSubmit} className="card bg-white space-y-5">
           {/* Email */}
           <div>
             <label htmlFor="login-email" className="form-label">
               <Mail size={13} className="inline mr-1.5 text-tvk-red" />
-              Email Address
+              மின்னஞ்சல் முகவரி | Email Address
             </label>
             <input
               id="login-email"
@@ -60,7 +60,7 @@ export default function Login() {
           <div>
             <label htmlFor="login-password" className="form-label">
               <Lock size={13} className="inline mr-1.5 text-tvk-red" />
-              Password
+              கடவுச்சொல் | Password
             </label>
             <div className="relative">
               <input
@@ -76,7 +76,7 @@ export default function Login() {
               <button
                 type="button"
                 onClick={() => setShowPass(!showPass)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
               >
                 {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
@@ -87,19 +87,20 @@ export default function Login() {
             id="login-submit"
             type="submit"
             disabled={submitting}
-            className="btn-primary w-full justify-center py-3.5 text-base"
+            className="btn-primary w-full justify-center py-3.5 text-base cursor-pointer"
+            style={{ border: '1px solid rgba(212,175,55,0.3)' }}
           >
             {submitting ? (
               <>
                 <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                Signing in...
+                உள்நுழைகிறது... | Signing in...
               </>
-            ) : 'Sign In'}
+            ) : 'உள்நுழை | Sign In'}
           </button>
         </form>
 
-        <p className="text-center text-gray-600 text-xs mt-6">
-          Access is restricted to authorized TVK party workers only.
+        <p className="text-center text-gray-500 font-bold text-xs mt-6">
+          அங்கீகரிக்கப்பட்ட த.வெ.க கட்சித் தொண்டர்களுக்கு மட்டுமே அனுமதி. Access is restricted to authorized TVK party workers only.
         </p>
       </div>
     </div>

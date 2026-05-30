@@ -292,7 +292,7 @@ export default function SplashLoader({ onDone }) {
 
           {/* ── LOGO BADGE ── */}
           <div style={{
-            width:'112px', height:'112px', borderRadius:'28px',
+            width:'140px', height:'140px', borderRadius:'36px',
             background:'linear-gradient(145deg, #DC2626 0%, #B91C1C 50%, #92400E 100%)',
             display:'flex', alignItems:'center', justifyContent:'center',
             position:'relative',
@@ -308,7 +308,7 @@ export default function SplashLoader({ onDone }) {
           }}>
             {/* Inner gold rim */}
             <div style={{
-              position:'absolute', inset:'2px', borderRadius:'26px',
+              position:'absolute', inset:'2px', borderRadius:'34px',
               border:'1px solid rgba(251,191,36,0.2)',
               pointerEvents:'none',
             }} />
@@ -320,7 +320,7 @@ export default function SplashLoader({ onDone }) {
               transform:'rotate(-28deg)',
               pointerEvents:'none',
             }} />
-            <WhistleSymbol size={64} />
+            <WhistleSymbol size={100} />
           </div>
 
           {/* ── SCRAMBLE NAME ── */}
@@ -383,7 +383,7 @@ export default function SplashLoader({ onDone }) {
               textAlign:'center',
               lineHeight:1.6,
             }}>
-              மக்களுக்காக &nbsp;·&nbsp; For the People
+              பிறப்பொக்கும் எல்லா உயிர்க்கும்
             </p>
           )}
 

@@ -57,33 +57,33 @@ function GrievancesPanel() {
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         {[
-          { label: 'Total Issues', value: counts.total, color: 'text-white' },
-          { label: 'Pending', value: counts.pending, color: 'text-tvk-yellow' },
-          { label: 'Accepted', value: counts.accepted, color: 'text-green-400' },
+          { label: 'Total Issues', value: counts.total, color: 'text-gray-800' },
+          { label: 'Pending', value: counts.pending, color: 'text-tvk-yellow-dark' },
+          { label: 'Accepted', value: counts.accepted, color: 'text-green-600' },
         ].map(({ label, value, color }) => (
-          <div key={label} className="card text-center py-4">
+          <div key={label} className="card text-center py-4 bg-white">
             <p className={`text-3xl font-black ${color}`}>{value}</p>
-            <p className="text-gray-500 text-xs mt-1">{label}</p>
+            <p className="text-[#6e5d59] font-bold text-xs mt-1">{label}</p>
           </div>
         ))}
       </div>
 
       {/* Filter Tabs + Refresh */}
       <div className="flex items-center justify-between mb-5">
-        <div className="flex gap-2 bg-surface-2 border border-border rounded-xl p-1">
+        <div className="flex gap-2 bg-white border border-[#e6dfd0] rounded-xl p-1">
           {['all', 'pending', 'accepted'].map(f => (
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`px-4 py-1.5 rounded-lg text-sm font-medium capitalize transition-all ${
-                filter === f ? 'bg-tvk-red text-white' : 'text-gray-400 hover:text-white'
+              className={`px-4 py-1.5 rounded-lg text-sm font-bold capitalize transition-all cursor-pointer ${
+                filter === f ? 'bg-tvk-red text-white' : 'text-gray-500 hover:text-tvk-red'
               }`}
             >
               {f}
             </button>
           ))}
         </div>
-        <button onClick={fetchGrievances} className="text-gray-500 hover:text-white transition-colors">
+        <button onClick={fetchGrievances} className="text-tvk-red hover:text-tvk-red-dark transition-colors cursor-pointer">
           <RefreshCw size={16} />
         </button>
       </div>
@@ -91,34 +91,34 @@ function GrievancesPanel() {
       {/* Table */}
       {loading ? (
         <div className="space-y-3">
-          {[...Array(4)].map((_, i) => <div key={i} className="h-20 bg-surface-3 rounded-xl animate-pulse" />)}
+          {[...Array(4)].map((_, i) => <div key={i} className="h-20 bg-[#f5f1e8] rounded-xl animate-pulse" />)}
         </div>
       ) : grievances.length === 0 ? (
-        <div className="text-center py-16 text-gray-500 border border-dashed border-border rounded-xl">
-          <AlertTriangle size={32} className="mx-auto mb-3 opacity-30" />
-          <p className="text-sm">No {filter === 'all' ? '' : filter} grievances found.</p>
+        <div className="text-center py-16 text-gray-500 border border-dashed border-[#e6dfd0] bg-white rounded-xl">
+          <AlertTriangle size={32} className="mx-auto mb-3 opacity-30 text-tvk-red" />
+          <p className="text-sm font-bold">No {filter === 'all' ? '' : filter} grievances found.</p>
         </div>
       ) : (
         <div className="space-y-3">
           {grievances.map(g => (
             <div
               key={g.id}
-              className={`bg-surface-2 border rounded-xl p-4 transition-colors ${
-                g.status === 'pending' ? 'border-tvk-yellow/20 hover:border-tvk-yellow/40' : 'border-green-700/20'
+              className={`bg-white border rounded-xl p-4 transition-colors shadow-sm ${
+                g.status === 'pending' ? 'border-tvk-yellow/40 hover:border-tvk-yellow/70' : 'border-green-700/20'
               }`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-2 flex-wrap">
-                    <div className="flex items-center gap-1.5 text-white font-semibold">
-                      <User size={14} className="text-gray-400" />
+                    <div className="flex items-center gap-1.5 text-gray-800 font-extrabold">
+                      <User size={14} className="text-gray-500" />
                       {g.citizen_name}
                     </div>
-                    <div className="flex items-center gap-1.5 text-gray-400 text-sm">
+                    <div className="flex items-center gap-1.5 text-gray-600 text-sm font-semibold">
                       <Phone size={12} />
                       {g.phone_number}
                     </div>
-                    <span className="bg-surface-3 text-gray-300 text-xs px-2 py-0.5 rounded-full border border-border">
+                    <span className="bg-tvk-yellow/10 text-tvk-yellow-dark text-xs px-2 py-0.5 rounded-full border border-tvk-yellow/30 font-bold">
                       {g.issue_type}
                     </span>
                     {g.status === 'pending'
@@ -126,8 +126,8 @@ function GrievancesPanel() {
                       : <span className="badge-accepted flex items-center gap-1"><CheckCircle size={10} /> Accepted</span>
                     }
                   </div>
-                  <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">{g.description}</p>
-                  <p className="text-gray-600 text-xs mt-2">
+                  <p className="text-gray-700 font-medium text-sm leading-relaxed line-clamp-2">{g.description}</p>
+                  <p className="text-gray-500 font-bold text-xs mt-2">
                     {new Date(g.created_at).toLocaleString('en-IN')}
                   </p>
                 </div>
@@ -136,7 +136,7 @@ function GrievancesPanel() {
                   <button
                     onClick={() => handleAccept(g)}
                     disabled={updating === g.id}
-                    className="btn-yellow shrink-0 text-sm py-2 px-4"
+                    className="btn-yellow shrink-0 text-sm py-2 px-4 cursor-pointer"
                     title="Accept this grievance"
                   >
                     {updating === g.id
@@ -188,23 +188,23 @@ function BloodInventoryPanel() {
   return (
     <div>
       <div className="flex items-center gap-2 mb-6">
-        <Droplets size={18} className="text-red-400" />
-        <h2 className="text-white font-bold text-xl">Blood Inventory</h2>
-        <span className="text-gray-500 text-sm ml-2">— Update unit counts manually</span>
+        <Droplets size={18} className="text-tvk-red animate-pulse" />
+        <h2 className="text-gray-800 font-extrabold text-xl">Blood Inventory</h2>
+        <span className="text-[#6e5d59] font-bold text-sm ml-2">— Update unit counts manually</span>
       </div>
 
       {loading ? (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {[...Array(8)].map((_, i) => <div key={i} className="h-32 bg-surface-3 rounded-xl animate-pulse" />)}
+          {[...Array(8)].map((_, i) => <div key={i} className="h-32 bg-[#f5f1e8] rounded-xl animate-pulse" />)}
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {inventory.map(item => (
-            <div key={item.id} className="card flex flex-col items-center gap-3 text-center">
-              <div className="w-12 h-12 bg-tvk-red/10 border border-tvk-red/30 rounded-full flex items-center justify-center">
+            <div key={item.id} className="card flex flex-col items-center gap-3 text-center bg-white border border-[#e6dfd0]">
+              <div className="w-12 h-12 bg-tvk-red/5 border border-tvk-red/20 rounded-full flex items-center justify-center">
                 <Droplets size={20} className="text-tvk-red" />
               </div>
-              <p className="text-white font-black text-2xl">{item.blood_group}</p>
+              <p className="text-gray-800 font-black text-2xl">{item.blood_group}</p>
               <input
                 type="number"
                 min={0}
@@ -215,14 +215,15 @@ function BloodInventoryPanel() {
               <button
                 onClick={() => handleUpdate(item.blood_group)}
                 disabled={saving === item.blood_group}
-                className="btn-primary text-xs py-2 px-4 w-full justify-center"
+                className="btn-primary text-xs py-2 px-4 w-full justify-center cursor-pointer"
+                style={{ border: '1px solid rgba(212,175,55,0.3)' }}
               >
                 {saving === item.blood_group
                   ? <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   : <><Save size={13} /> Update</>
                 }
               </button>
-              <p className="text-gray-600 text-xs">
+              <p className="text-gray-500 font-semibold text-xs">
                 Updated {new Date(item.updated_at).toLocaleDateString('en-IN')}
               </p>
             </div>
@@ -244,24 +245,24 @@ export default function WelfareOfficerView() {
   const { profile, signOut } = useAuth()
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-[#faf7f0]">
       {/* Top Bar */}
-      <header className="bg-surface-2 border-b border-border sticky top-0 z-40">
+      <header className="bg-[#1c0d0d] border-b border-tvk-yellow/30 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gradient-to-br from-tvk-red to-tvk-yellow rounded-lg flex items-center justify-center">
+            <div className="w-9 h-9 bg-gradient-to-br from-[#800000] to-[#d4af37] border border-tvk-yellow/30 rounded-lg flex items-center justify-center">
               <Flame size={18} className="text-white" />
             </div>
             <div>
-              <p className="text-white font-bold text-sm leading-none">Welfare Officer</p>
-              <p className="text-gray-500 text-xs mt-0.5">{profile?.email}</p>
+              <p className="text-white font-black text-sm leading-none">Welfare Officer</p>
+              <p className="text-tvk-yellow/80 font-bold text-xs mt-0.5">{profile?.email}</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <a href="/" target="_blank" className="text-gray-400 hover:text-white text-sm transition-colors flex items-center gap-1.5">
+          <div className="flex items-center gap-3 font-bold text-sm">
+            <a href="/" target="_blank" className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5">
               <LayoutDashboard size={14} /> View Site
             </a>
-            <button onClick={signOut} className="text-gray-400 hover:text-tvk-red transition-colors flex items-center gap-1.5 text-sm">
+            <button onClick={signOut} className="text-gray-300 hover:text-tvk-red-light transition-colors flex items-center gap-1.5 cursor-pointer">
               <LogOut size={14} /> Sign Out
             </button>
           </div>
@@ -270,15 +271,15 @@ export default function WelfareOfficerView() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Tab Nav */}
-        <div className="flex gap-2 mb-8 bg-surface-2 border border-border rounded-xl p-1.5 w-fit">
+        <div className="flex gap-2 mb-8 bg-white border border-[#e6dfd0] rounded-xl p-1.5 w-fit">
           {TABS.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
               onClick={() => setActiveTab(id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer ${
                 activeTab === id
-                  ? 'bg-tvk-red text-white shadow-lg'
-                  : 'text-gray-400 hover:text-white hover:bg-surface-3'
+                  ? 'bg-tvk-red text-white shadow-sm'
+                  : 'text-gray-600 hover:text-tvk-red hover:bg-tvk-yellow/10'
               }`}
             >
               <Icon size={15} /> {label}

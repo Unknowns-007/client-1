@@ -11,10 +11,10 @@ import {
 function Modal({ title, onClose, children }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-      <div className="bg-surface-2 border border-border rounded-2xl w-full max-w-lg shadow-2xl">
-        <div className="flex items-center justify-between p-5 border-b border-border">
-          <h3 className="text-white font-bold text-lg">{title}</h3>
-          <button onClick={onClose} className="text-gray-500 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10">
+      <div className="bg-white border border-[#e6dfd0] rounded-2xl w-full max-w-lg shadow-2xl">
+        <div className="flex items-center justify-between p-5 border-b border-[#e6dfd0]">
+          <h3 className="text-gray-800 font-black text-lg">{title}</h3>
+          <button onClick={onClose} className="text-gray-500 hover:text-tvk-red transition-colors p-1 rounded-lg hover:bg-tvk-yellow/10 cursor-pointer">
             <X size={20} />
           </button>
         </div>
@@ -33,7 +33,7 @@ function EventsBlogManager({ type }) {
   const [form, setForm] = useState({ title: '', description: '', image_url: '', event_date: '', type })
   const [saving, setSaving] = useState(false)
 
-  const icon = type === 'event' ? <Calendar size={16} className="text-tvk-yellow" /> : <FileText size={16} className="text-purple-400" />
+  const icon = type === 'event' ? <Calendar size={16} className="text-tvk-yellow-dark" /> : <FileText size={16} className="text-purple-600" />
   const label = type === 'event' ? 'Events' : 'Blog Posts'
 
   const fetchItems = async () => {
@@ -83,39 +83,39 @@ function EventsBlogManager({ type }) {
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2">
           {icon}
-          <h2 className="text-white font-bold text-xl">{label}</h2>
-          <span className="bg-surface-3 text-gray-400 text-xs px-2 py-0.5 rounded-full">{items.length}</span>
+          <h2 className="text-gray-800 font-extrabold text-xl">{label}</h2>
+          <span className="bg-tvk-yellow/10 text-tvk-yellow-dark text-xs px-2 py-0.5 rounded-full border border-tvk-yellow/30 font-bold">{items.length}</span>
         </div>
-        <button onClick={openCreate} className="btn-primary text-sm py-2 px-4">
+        <button onClick={openCreate} className="btn-primary text-sm py-2 px-4 cursor-pointer" style={{ border: '1px solid rgba(212,175,55,0.3)' }}>
           <Plus size={16} /> New {label.slice(0, -1)}
         </button>
       </div>
 
       {loading ? (
-        <div className="space-y-3">{[...Array(3)].map((_, i) => <div key={i} className="h-16 bg-surface-3 rounded-xl animate-pulse" />)}</div>
+        <div className="space-y-3">{[...Array(3)].map((_, i) => <div key={i} className="h-16 bg-[#f5f1e8] rounded-xl animate-pulse" />)}</div>
       ) : items.length === 0 ? (
-        <div className="text-center py-12 text-gray-500 border border-dashed border-border rounded-xl">
-          <p className="text-sm">No {label.toLowerCase()} yet. Create the first one.</p>
+        <div className="text-center py-12 text-gray-500 border border-dashed border-[#e6dfd0] bg-white rounded-xl">
+          <p className="text-sm font-bold">No {label.toLowerCase()} yet. Create the first one.</p>
         </div>
       ) : (
         <div className="space-y-3">
           {items.map(item => (
-            <div key={item.id} className="flex items-center justify-between bg-surface-3 border border-border rounded-xl px-4 py-3 hover:border-tvk-red/30 transition-colors">
+            <div key={item.id} className="flex items-center justify-between bg-white border border-[#e6dfd0] rounded-xl px-4 py-3 hover:border-tvk-red/45 transition-colors shadow-sm">
               <div className="flex items-center gap-3 min-w-0">
                 {item.image_url
                   ? <img src={item.image_url} alt="" className="w-10 h-10 rounded-lg object-cover shrink-0" />
-                  : <div className="w-10 h-10 bg-surface-2 rounded-lg flex items-center justify-center shrink-0"><Image size={16} className="text-gray-600" /></div>
+                  : <div className="w-10 h-10 bg-[#f5f1e8] rounded-lg flex items-center justify-center shrink-0"><Image size={16} className="text-gray-400" /></div>
                 }
                 <div className="min-w-0">
-                  <p className="text-white font-medium text-sm truncate">{item.title}</p>
-                  <p className="text-gray-500 text-xs">{new Date(item.created_at).toLocaleDateString('en-IN')}</p>
+                  <p className="text-gray-800 font-extrabold text-sm truncate">{item.title}</p>
+                  <p className="text-gray-500 font-bold text-xs">{new Date(item.created_at).toLocaleDateString('en-IN')}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 shrink-0 ml-4">
-                <button onClick={() => openEdit(item)} className="text-gray-400 hover:text-tvk-yellow transition-colors p-1.5 rounded-lg hover:bg-tvk-yellow/10">
+              <div className="flex items-center gap-2 shrink-0 ml-4 font-bold">
+                <button onClick={() => openEdit(item)} className="text-tvk-yellow-dark hover:text-tvk-yellow hover:bg-tvk-yellow/15 p-1.5 rounded-lg transition-colors cursor-pointer">
                   <Pencil size={15} />
                 </button>
-                <button onClick={() => handleDelete(item.id)} className="text-gray-400 hover:text-tvk-red transition-colors p-1.5 rounded-lg hover:bg-tvk-red/10">
+                <button onClick={() => handleDelete(item.id)} className="text-tvk-red hover:text-tvk-red-dark hover:bg-tvk-red/15 p-1.5 rounded-lg transition-colors cursor-pointer">
                   <Trash2 size={15} />
                 </button>
               </div>
@@ -145,7 +145,7 @@ function EventsBlogManager({ type }) {
                 <input type="date" className="form-input" value={form.event_date} onChange={e => setForm({ ...form, event_date: e.target.value })} />
               </div>
             )}
-            <button onClick={handleSave} disabled={saving} className="btn-primary w-full justify-center">
+            <button onClick={handleSave} disabled={saving} className="btn-primary w-full justify-center cursor-pointer" style={{ border: '1px solid rgba(212,175,55,0.3)' }}>
               {saving ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><Save size={16} /> Save</>}
             </button>
           </div>
@@ -206,34 +206,34 @@ function LeadsManager() {
     <div>
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2">
-          <Users size={16} className="text-blue-400" />
-          <h2 className="text-white font-bold text-xl">Constituency Leaders</h2>
-          <span className="bg-surface-3 text-gray-400 text-xs px-2 py-0.5 rounded-full">{leaders.length}</span>
+          <Users size={16} className="text-blue-600" />
+          <h2 className="text-gray-800 font-extrabold text-xl">Constituency Leaders</h2>
+          <span className="bg-tvk-yellow/10 text-tvk-yellow-dark text-xs px-2 py-0.5 rounded-full border border-tvk-yellow/30 font-bold">{leaders.length}</span>
         </div>
-        <button onClick={openCreate} className="btn-primary text-sm py-2 px-4"><Plus size={16} /> Add Leader</button>
+        <button onClick={openCreate} className="btn-primary text-sm py-2 px-4 cursor-pointer" style={{ border: '1px solid rgba(212,175,55,0.3)' }}><Plus size={16} /> Add Leader</button>
       </div>
 
       {loading ? (
-        <div className="space-y-3">{[...Array(3)].map((_, i) => <div key={i} className="h-16 bg-surface-3 rounded-xl animate-pulse" />)}</div>
+        <div className="space-y-3">{[...Array(3)].map((_, i) => <div key={i} className="h-16 bg-[#f5f1e8] rounded-xl animate-pulse" />)}</div>
       ) : leaders.length === 0 ? (
-        <div className="text-center py-12 text-gray-500 border border-dashed border-border rounded-xl"><p className="text-sm">No leaders added yet.</p></div>
+        <div className="text-center py-12 text-gray-500 border border-dashed border-[#e6dfd0] bg-white rounded-xl"><p className="text-sm font-bold">No leaders added yet.</p></div>
       ) : (
         <div className="space-y-3">
           {leaders.map(l => (
-            <div key={l.id} className="flex items-center justify-between bg-surface-3 border border-border rounded-xl px-4 py-3 hover:border-tvk-red/30 transition-colors">
+            <div key={l.id} className="flex items-center justify-between bg-white border border-[#e6dfd0] rounded-xl px-4 py-3 hover:border-tvk-red/45 transition-colors shadow-sm">
               <div className="flex items-center gap-3 min-w-0">
                 {l.photo_url
-                  ? <img src={l.photo_url} alt={l.name} className="w-10 h-10 rounded-full object-cover ring-2 ring-tvk-red/30 shrink-0" />
-                  : <div className="w-10 h-10 bg-gradient-to-br from-tvk-red to-tvk-yellow rounded-full flex items-center justify-center shrink-0 text-white text-xs font-bold">{l.name[0]}</div>
+                  ? <img src={l.photo_url} alt={l.name} className="w-10 h-10 rounded-full object-cover ring-2 ring-tvk-red/20 shrink-0" />
+                  : <div className="w-10 h-10 bg-gradient-to-br from-[#800000] to-[#d4af37] border border-tvk-yellow/30 rounded-full flex items-center justify-center shrink-0 text-white text-xs font-bold">{l.name[0]}</div>
                 }
                 <div className="min-w-0">
-                  <p className="text-white font-medium text-sm">{l.name}</p>
-                  <p className="text-tvk-yellow text-xs">{l.designation}</p>
+                  <p className="text-gray-800 font-extrabold text-sm">{l.name}</p>
+                  <p className="text-tvk-yellow-dark font-bold text-xs">{l.designation}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 shrink-0 ml-4">
-                <button onClick={() => openEdit(l)} className="text-gray-400 hover:text-tvk-yellow transition-colors p-1.5 rounded-lg hover:bg-tvk-yellow/10"><Pencil size={15} /></button>
-                <button onClick={() => handleDelete(l.id)} className="text-gray-400 hover:text-tvk-red transition-colors p-1.5 rounded-lg hover:bg-tvk-red/10"><Trash2 size={15} /></button>
+              <div className="flex items-center gap-2 shrink-0 ml-4 font-bold">
+                <button onClick={() => openEdit(l)} className="text-tvk-yellow-dark hover:text-tvk-yellow hover:bg-tvk-yellow/15 p-1.5 rounded-lg transition-colors cursor-pointer"><Pencil size={15} /></button>
+                <button onClick={() => handleDelete(l.id)} className="text-tvk-red hover:text-tvk-red-dark hover:bg-tvk-red/15 p-1.5 rounded-lg transition-colors cursor-pointer"><Trash2 size={15} /></button>
               </div>
             </div>
           ))}
@@ -254,7 +254,7 @@ function LeadsManager() {
             </div>
             <div><label className="form-label">Address</label><input className="form-input" value={form.contact_details.address} onChange={e => setContact('address', e.target.value)} placeholder="Office address" /></div>
             <div><label className="form-label">Display Order</label><input type="number" className="form-input" value={form.display_order} onChange={e => setForm({ ...form, display_order: parseInt(e.target.value) || 0 })} /></div>
-            <button onClick={handleSave} disabled={saving} className="btn-primary w-full justify-center">
+            <button onClick={handleSave} disabled={saving} className="btn-primary w-full justify-center cursor-pointer" style={{ border: '1px solid rgba(212,175,55,0.3)' }}>
               {saving ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><Save size={16} /> Save</>}
             </button>
           </div>
@@ -276,24 +276,24 @@ export default function ContentManagerView() {
   const { profile, signOut } = useAuth()
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-[#faf7f0]">
       {/* Top Bar */}
-      <header className="bg-surface-2 border-b border-border sticky top-0 z-40">
+      <header className="bg-[#1c0d0d] border-b border-tvk-yellow/30 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gradient-to-br from-tvk-red to-tvk-yellow rounded-lg flex items-center justify-center">
+            <div className="w-9 h-9 bg-gradient-to-br from-[#800000] to-[#d4af37] border border-tvk-yellow/30 rounded-lg flex items-center justify-center">
               <Flame size={18} className="text-white" />
             </div>
             <div>
-              <p className="text-white font-bold text-sm leading-none">Content Manager</p>
-              <p className="text-gray-500 text-xs mt-0.5">{profile?.email}</p>
+              <p className="text-white font-black text-sm leading-none">Content Manager</p>
+              <p className="text-tvk-yellow/80 font-bold text-xs mt-0.5">{profile?.email}</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <a href="/" target="_blank" className="text-gray-400 hover:text-white text-sm transition-colors flex items-center gap-1.5">
+          <div className="flex items-center gap-3 font-bold text-sm">
+            <a href="/" target="_blank" className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5">
               <LayoutDashboard size={14} /> View Site
             </a>
-            <button onClick={signOut} className="text-gray-400 hover:text-tvk-red transition-colors flex items-center gap-1.5 text-sm">
+            <button onClick={signOut} className="text-gray-300 hover:text-tvk-red-light transition-colors flex items-center gap-1.5 cursor-pointer">
               <LogOut size={14} /> Sign Out
             </button>
           </div>
@@ -302,15 +302,15 @@ export default function ContentManagerView() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Tab Nav */}
-        <div className="flex gap-2 mb-8 bg-surface-2 border border-border rounded-xl p-1.5 w-fit">
+        <div className="flex gap-2 mb-8 bg-white border border-[#e6dfd0] rounded-xl p-1.5 w-fit">
           {TABS.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
               onClick={() => setActiveTab(id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer ${
                 activeTab === id
-                  ? 'bg-tvk-red text-white shadow-lg'
-                  : 'text-gray-400 hover:text-white hover:bg-surface-3'
+                  ? 'bg-tvk-red text-white shadow-sm'
+                  : 'text-gray-600 hover:text-tvk-red hover:bg-tvk-yellow/10 font-bold'
               }`}
             >
               <Icon size={15} /> {label}
