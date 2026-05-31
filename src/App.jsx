@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -37,7 +37,7 @@ export default function App() {
           pointerEvents: loading ? 'none' : 'auto',
         }}
       >
-        <BrowserRouter>
+        <HashRouter>
           <ScrollToTop />
           <Toaster
             position="top-right"
@@ -72,7 +72,7 @@ export default function App() {
             </Routes>
           </main>
           <Footer />
-        </BrowserRouter>
+        </HashRouter>
       </div>
     </AuthProvider>
   )

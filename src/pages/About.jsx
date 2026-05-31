@@ -867,7 +867,7 @@ export default function About() {
             </div>
             <div className="mt-5 text-center">
               <span className="text-xs uppercase font-extrabold tracking-[0.2em] text-[#800000] bg-[rgba(128,0,0,0.06)] px-4 py-1.5 rounded-full border border-tvk-red/15">
-                தமிழக வெற்றி கழகத்தின் அதிகாரப்பூர்வ கொடி | Official Standard of TVK
+                தமிழக வெற்றி கழகத்தின் அதிகாரப்பூர்வ கொடி 
               </span>
             </div>
           </div>
@@ -875,11 +875,11 @@ export default function About() {
           {/* Details below flag, spanning full container */}
           <div className="w-full space-y-8 text-center max-w-5xl">
             <div className="space-y-2">
-              <h3 className="text-gray-900 font-black text-3xl lg:text-4xl tracking-tight leading-none">த.வெ.க கட்சியின் கொடி | The TVK Party Flag</h3>
+              <h3 className="text-gray-900 font-black text-3xl lg:text-4xl tracking-tight leading-none"> The TVK Party Flag</h3>
               <p className="text-sm font-extrabold text-tvk-yellow-dark tracking-wide uppercase">பெருமை, வீரம் மற்றும் வெற்றியின் அடையாளம் | Symbolism of Pride, Valour &amp; Victory</p>
             </div>
             <p className="text-sm md:text-base font-semibold leading-relaxed text-[#5c4e4b] max-w-3xl mx-auto">
-              **தமிழக வெற்றி கழகத்தின் அதிகாரப்பூர்வ கொடி சிவப்பு-மஞ்சள்-சிவப்பு ஆகிய மூன்று கிடைமட்ட பட்டைகளைக் கொண்டது, இது பண்டைய தமிழ் மரபின் சிறந்த சின்னங்களை உள்ளடக்கியது. ஒவ்வொரு சின்னமும் நமது அர்ப்பணிப்பின் தூணைக் குறிக்கிறது:**
+              தமிழக வெற்றி கழகத்தின் அதிகாரப்பூர்வ கொடி சிவப்பு-மஞ்சள்-சிவப்பு ஆகிய மூன்று கிடைமட்ட பட்டைகளைக் கொண்டது, இது பண்டைய தமிழ் மரபின் சிறந்த சின்னங்களை உள்ளடக்கியது. ஒவ்வொரு சின்னமும் நமது அர்ப்பணிப்பின் தூணைக் குறிக்கிறது:
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left pt-4">
