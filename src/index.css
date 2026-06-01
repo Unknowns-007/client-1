@@ -66,23 +66,49 @@
 
 /* ── Global Keyframes ── */
 @keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position:  200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-8px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(128,0,0,0.15), 0 0 60px rgba(128,0,0,0.03); }
-  50%       { box-shadow: 0 0 35px rgba(128,0,0,0.3), 0 0 80px rgba(128,0,0,0.08); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(128, 0, 0, 0.15), 0 0 60px rgba(128, 0, 0, 0.03);
+  }
+
+  50% {
+    box-shadow: 0 0 35px rgba(128, 0, 0, 0.3), 0 0 80px rgba(128, 0, 0, 0.08);
+  }
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes heroImageReveal {
@@ -91,6 +117,7 @@
     transform: translateY(30px) scale(0.97);
     filter: blur(8px) brightness(1.2);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -104,9 +131,19 @@
 }
 
 @keyframes orb-drift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%       { transform: translate(25px, -15px) scale(1.03); }
-  66%       { transform: translate(-15px, 15px) scale(0.98); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(25px, -15px) scale(1.03);
+  }
+
+  66% {
+    transform: translate(-15px, 15px) scale(0.98);
+  }
 }
 
 @layer components {
@@ -116,49 +153,63 @@
     @apply font-bold px-6 py-3 rounded-xl transition-all duration-300 inline-flex items-center gap-2 cursor-pointer relative overflow-hidden;
     background: linear-gradient(135deg, #800000 0%, #5c0000 100%);
     color: #ffffff;
-    box-shadow: 0 4px 14px rgba(128,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
-    border: 1px solid rgba(128,0,0,0.35);
+    box-shadow: 0 4px 14px rgba(128, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(128, 0, 0, 0.35);
   }
+
   .btn-primary::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
     opacity: 0;
     transition: opacity 0.3s;
   }
+
   .btn-primary:hover {
     background: linear-gradient(135deg, #990000 0%, #800000 100%);
-    box-shadow: 0 6px 20px rgba(128,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.2);
+    box-shadow: 0 6px 20px rgba(128, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     transform: translateY(-1.5px);
   }
-  .btn-primary:hover::before { opacity: 1; }
-  .btn-primary:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(128,0,0,0.25); }
+
+  .btn-primary:hover::before {
+    opacity: 1;
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(128, 0, 0, 0.25);
+  }
 
   .btn-yellow {
     @apply font-bold px-6 py-3 rounded-xl transition-all duration-300 inline-flex items-center gap-2 cursor-pointer relative overflow-hidden;
     background: linear-gradient(135deg, #d4af37 0%, #a6841b 100%);
     color: #1c0d0d;
-    box-shadow: 0 4px 14px rgba(212,175,55,0.25), inset 0 1px 0 rgba(255,255,255,0.35);
-    border: 1px solid rgba(212,175,55,0.4);
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(212, 175, 55, 0.4);
   }
+
   .btn-yellow:hover {
     background: linear-gradient(135deg, #eac143 0%, #d4af37 100%);
-    box-shadow: 0 6px 20px rgba(212,175,55,0.35), inset 0 1px 0 rgba(255,255,255,0.4);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
     transform: translateY(-1.5px);
   }
-  .btn-yellow:active { transform: translateY(0); }
+
+  .btn-yellow:active {
+    transform: translateY(0);
+  }
 
   .btn-outline {
     @apply font-bold px-6 py-3 rounded-xl transition-all duration-300 inline-flex items-center gap-2 cursor-pointer;
-    background: rgba(128,0,0,0.02);
+    background: rgba(128, 0, 0, 0.02);
     color: #800000;
     border: 1px solid #e6dfd0;
   }
+
   .btn-outline:hover {
-    background: rgba(128,0,0,0.06);
+    background: rgba(128, 0, 0, 0.06);
     border-color: #800000;
-    box-shadow: 0 4px 14px rgba(128,0,0,0.08);
+    box-shadow: 0 4px 14px rgba(128, 0, 0, 0.08);
     transform: translateY(-1.5px);
   }
 
@@ -168,23 +219,30 @@
     background: rgba(255, 255, 255, 0.95);
     border: 1px solid #e6dfd0;
     backdrop-filter: blur(8px);
-    box-shadow: 0 4px 20px rgba(35,25,23,0.04);
+    box-shadow: 0 4px 20px rgba(35, 25, 23, 0.04);
   }
+
   .card::after {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 1.5px;
-    background: linear-gradient(90deg, transparent, rgba(128,0,0,0.5) 30%, rgba(212,175,55,0.4) 70%, transparent);
+    background: linear-gradient(90deg, transparent, rgba(128, 0, 0, 0.5) 30%, rgba(212, 175, 55, 0.4) 70%, transparent);
     opacity: 0;
     transition: opacity 0.4s;
   }
+
   .card:hover {
-    border-color: rgba(128,0,0,0.25);
-    box-shadow: 0 10px 32px rgba(128,0,0,0.06), 0 4px 12px rgba(35,25,23,0.02);
+    border-color: rgba(128, 0, 0, 0.25);
+    box-shadow: 0 10px 32px rgba(128, 0, 0, 0.06), 0 4px 12px rgba(35, 25, 23, 0.02);
     transform: translateY(-2px);
   }
-  .card:hover::after { opacity: 1; }
+
+  .card:hover::after {
+    opacity: 1;
+  }
 
   /* ── Forms ── */
   .form-input {
@@ -193,11 +251,13 @@
     border: 1px solid #e6dfd0;
     outline: none;
   }
+
   .form-input:focus {
     border-color: #800000;
     background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(128,0,0,0.08), 0 0 20px rgba(128,0,0,0.04);
+    box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.08), 0 0 20px rgba(128, 0, 0, 0.04);
   }
+
   select.form-input option {
     background: #ffffff;
     color: #231917;
@@ -228,16 +288,16 @@
   /* ── Badges ── */
   .badge-pending {
     @apply px-3 py-1 rounded-full text-xs font-semibold inline-flex items-center gap-1;
-    background: rgba(212,175,55,0.1);
+    background: rgba(212, 175, 55, 0.1);
     color: #a6841b;
-    border: 1px solid rgba(212,175,55,0.25);
+    border: 1px solid rgba(212, 175, 55, 0.25);
   }
 
   .badge-accepted {
     @apply px-3 py-1 rounded-full text-xs font-semibold inline-flex items-center gap-1;
-    background: rgba(34,197,94,0.1);
+    background: rgba(34, 197, 94, 0.1);
     color: #15803d;
-    border: 1px solid rgba(34,197,94,0.2);
+    border: 1px solid rgba(34, 197, 94, 0.2);
   }
 
   /* ── Utility helpers ── */
@@ -252,14 +312,14 @@
 
   .glow-divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(128,0,0,0.2) 20%, rgba(212,175,55,0.3) 50%, rgba(128,0,0,0.2) 80%, transparent);
+    background: linear-gradient(90deg, transparent, rgba(128, 0, 0, 0.2) 20%, rgba(212, 175, 55, 0.3) 50%, rgba(128, 0, 0, 0.2) 80%, transparent);
     position: relative;
   }
 
   .section-badge {
     @apply inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs uppercase font-extrabold tracking-wider mb-4;
-    background: rgba(128,0,0,0.05);
-    border: 1px solid rgba(128,0,0,0.15);
+    background: rgba(128, 0, 0, 0.05);
+    border: 1px solid rgba(128, 0, 0, 0.15);
     color: #800000;
     backdrop-filter: blur(6px);
   }
@@ -274,5 +334,36 @@
   /* Handcrafted Divider from vijay.com/en */
   .handcrafted-divider {
     @apply mx-auto my-12 flex items-center justify-center gap-4 max-w-sm text-tvk-yellow;
+  }
+
+  /* ── Antigravity Header Floating & Pulsing Glows ── */
+  @keyframes header-levitation {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+
+  @keyframes heartbeat-pulse-border {
+    0%, 100% {
+      border-bottom-color: rgba(212, 175, 55, 0.35);
+      box-shadow: 0 4px 30px rgba(28, 13, 13, 0.45);
+    }
+    50% {
+      border-bottom-color: #FF1E1E;
+      box-shadow: 0 0 20px rgba(255, 30, 30, 0.8), 0 0 40px rgba(255, 30, 30, 0.3);
+    }
+  }
+
+  .header-suspension-float {
+    animation: header-levitation 8s infinite ease-in-out;
+    will-change: transform, opacity;
+  }
+
+  .header-heartbeat-active {
+    animation: heartbeat-pulse-border 1.2s infinite ease-in-out !important;
+    will-change: transform, opacity, box-shadow;
   }
 }

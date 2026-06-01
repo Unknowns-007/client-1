@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, AlertTriangle } from 'lucide-react'
 import WhistleSymbol from './WhistleSymbol'
 
 const navLinks = [
@@ -9,12 +9,14 @@ const navLinks = [
   { to: '/events', label: 'Events' },
   { to: '/blog', label: 'Blog' },
   { to: '/blood', label: 'Blood' },
+  { to: '/student-issues', label: 'Student Issues' },
   { to: '/raise-issue', label: 'Raise Issue' },
 ]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [pulsing, setPulsing] = useState(false)
   const { pathname } = useLocation()
 
   useEffect(() => {
@@ -23,12 +25,24 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    const triggerPulse = () => {
+      setPulsing(true)
+      const timer = setTimeout(() => setPulsing(false), 6000)
+      return () => clearTimeout(timer)
+    }
+    window.addEventListener('trigger-header-pulse', triggerPulse)
+    return () => window.removeEventListener('trigger-header-pulse', triggerPulse)
+  }, [])
+
   // Close mobile menu on route change
   useEffect(() => { setOpen(false) }, [pathname])
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        pulsing ? 'header-heartbeat-active' : ''
+      }`}
       style={{
         background: scrolled
           ? 'rgba(28, 13, 13, 0.96)'
@@ -77,24 +91,23 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-1.5">
             {navLinks.map(({ to, label }) => (
               <NavLink
                 key={to}
                 to={to}
                 end={to === '/'}
                 className={({ isActive }) =>
-                  `relative px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                    isActive
-                      ? 'text-white'
-                      : 'text-gray-300 hover:text-white hover:bg-white/5'
+                  `relative px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isActive
+                    ? 'text-white'
+                    : 'text-gray-300 hover:text-white hover:bg-white/5'
                   }`
                 }
                 style={({ isActive }) => isActive ? {
-                  background: 'rgba(128,0,0,0.18)',
+                  background: 'rgba(128, 0, 0, 0.18)',
                   color: '#f3e1a0',
-                  border: '1px solid rgba(212,175,55,0.3)',
-                  boxShadow: '0 0 12px rgba(128,0,0,0.15)',
+                  border: '1px solid rgba(212, 175, 55, 0.3)',
+                  boxShadow: '0 0 12px rgba(128, 0, 0, 0.15)',
                 } : {}}
               >
                 {label}
@@ -136,8 +149,7 @@ export default function Navbar() {
                 to={to}
                 end={to === '/'}
                 className={({ isActive }) =>
-                  `block px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                    isActive ? 'text-white' : 'text-gray-300 hover:text-white hover:bg-white/5'
+                  `block px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${isActive ? 'text-white' : 'text-gray-300 hover:text-white hover:bg-white/5'
                   }`
                 }
                 style={({ isActive }) => isActive ? {
