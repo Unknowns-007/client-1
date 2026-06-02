@@ -670,6 +670,23 @@ const MOCK_LEADERS = [
   },
   {
     id: 3,
+    name: 'கட்பீஸ் K. விஜயராகவன்',
+    designation: 'சென்னை வடக்கு (தெற்கு) மாவட்ட செயலாளர்',
+    description: 'கட்சியின் மாவட்ட கட்டமைப்பை வலுப்படுத்தி, சென்னை வடக்கு (தெற்கு) மாவட்டத்திற்குட்பட்ட அடிமட்ட தொண்டர்கள் வரை கொள்கைகளைக் கொண்டு சேர்க்கும் மக்கள் பணியில் அர்ப்பணிப்புடன் செயலாற்றுபவர். He works with absolute dedication to fortify district-level party infrastructure and expand grassroots mobilization across Chennai North (South) District.',
+    quote: 'சாதி, மத, இன பேதமற்ற சமத்துவ சமுதாயத்தை உருவாக்கி, மக்கள் நலன் சார்ந்த நேர்மையான, தூய்மையான மற்றும் மதச்சார்பற்ற அரசியலை நிலைநிறுத்துவதே நமது இலக்கு! Our goal is to establish an egalitarian society free of caste and religious barriers, ensuring transparent, clean, and secular governance focused entirely on people\'s welfare.',
+    responsibilities: [
+      'சென்னை வடக்கு (தெற்கு) மாவட்டக் கட்டமைப்பை நிர்வகித்தல் | Managing Chennai North (South) district-level party infrastructure and administration.',
+      '3 பகுதி செயலாளர்கள், 7 வட்ட தலைவர்கள் மற்றும் 23 அணிகளின் ஒருங்கிணைப்பு | Coordinating and guiding 3 Area Secretaries, 7 Ward Chairmen, and 23 Party Wings.',
+      'மாவட்ட அளவிலான மாநாடுகள் மற்றும் மக்கள் நலப் பணிகளைத் திட்டமிடுதல் | Organizing district conferences, public assemblies, and welfare programs.'
+    ],
+    photo_url: '/vijayaragavan.png',
+    contact_details: {
+      phone: '(Insert his Phone Number here)',
+      email: '(Insert his Email Address here)',
+    },
+  },
+  {
+    id: 4,
     name: 'ராயபுரம் K.V. தாமோதரன் (K.V. Damodharan)',
     designation: 'தொகுதிப் பொறுப்பாளர் | Constituency Head',
     description: 'ராயபுரம் தொகுதியின் மக்களின் குரலாகவும், கட்சியின் வளர்ச்சிப் பணிகளை முன்னின்று நடத்தும் அர்ப்பணிப்புள்ள மக்கள் பிரதிநிதி. Serving as the dedicated voice of Royapuram constituency, leading grassroots welfare operations and ensuring public requests are met.',
@@ -683,7 +700,7 @@ const MOCK_LEADERS = [
     contact_details: { phone: '+91 98765 43212', email: 'royapuram@tvk.in', address: 'Royapuram, Chennai' },
   },
   {
-    id: 4,
+    id: 5,
     name: 'நல அதிகாரி | Welfare Officer',
     designation: 'வார்டு ஒருங்கிணைப்பாளர் | Ward Coordinator',
     description: 'மக்களின் அன்றாடத் தேவைகளைக் கேட்டு அறிந்து, வார்டு அளவில் நலத்திட்ட உதவிகளை வழங்கி வரும் பொறுப்பாளர். Responsible for monitoring ward-level civic issues and executing localized public aid campaigns.',
@@ -731,9 +748,10 @@ export default function About() {
                 ]
               }
             }
-            if (lead.id === 3 || lead.name?.toLowerCase().includes('damu') || lead.name?.toLowerCase().includes('royapuram')) {
+            if (lead.id === 4 || lead.name?.toLowerCase().includes('damu') || lead.name?.toLowerCase().includes('royapuram')) {
               return {
                 ...lead,
+                id: 4,
                 name: 'ராயபுரம் K.V. தாமோதரன் (K.V. Damodharan)',
                 designation: 'தொகுதிப் பொறுப்பாளர் | Constituency Head',
                 description: 'ராயபுரம் தொகுதியின் மக்களின் குரலாகவும், கட்சியின் வளர்ச்சிப் பணிகளை முன்னின்று நடத்தும் அர்ப்பணிப்புள்ள மக்கள் பிரதிநிதி. Serving as the dedicated voice of Royapuram constituency, leading grassroots welfare operations and ensuring public requests are met.',
@@ -745,9 +763,69 @@ export default function About() {
                 ]
               }
             }
+            if (lead.id === 3 || lead.name?.toLowerCase().includes('vijayaragavan') || lead.name?.includes('விஜயராகவன்')) {
+              return {
+                ...lead,
+                id: 3,
+                name: 'கட்பீஸ் K. விஜயராகவன்',
+                designation: 'சென்னை வடக்கு (தெற்கு) மாவட்ட செயலாளர்',
+                description: 'கட்சியின் மாவட்ட கட்டமைப்பை வலுப்படுத்தி, சென்னை வடக்கு (தெற்கு) மாவட்டத்திற்குட்பட்ட அடிமட்ட தொண்டர்கள் வரை கொள்கைகளைக் கொண்டு சேர்க்கும் மக்கள் பணியில் அர்ப்பணிப்புடன் செயலாற்றுபவர். He works with absolute dedication to fortify district-level party infrastructure and expand grassroots mobilization across Chennai North (South) District.',
+                quote: 'சாதி, மத, இன பேதமற்ற சமத்துவ சமுதாயத்தை உருவாக்கி, மக்கள் நலன் சார்ந்த நேர்மையான, தூய்மையான மற்றும் மதச்சார்பற்ற அரசியலை நிலைநிறுத்துவதே நமது இலக்கு! Our goal is to establish an egalitarian society free of caste and religious barriers, ensuring transparent, clean, and secular governance focused entirely on people\'s welfare.',
+                responsibilities: [
+                  'சென்னை வடக்கு (தெற்கு) மாவட்டக் கட்டமைப்பை நிர்வகித்தல் | Managing Chennai North (South) district-level party infrastructure and administration.',
+                  '3 பகுதி செயலாளர்கள், 7 வட்ட தலைவர்கள் மற்றும் 23 அணிகளின் ஒருங்கிணைப்பு | Coordinating and guiding 3 Area Secretaries, 7 Ward Chairmen, and 23 Party Wings.',
+                  'மாவட்ட அளவிலான மாநாடுகள் மற்றும் மக்கள் நலப் பணிகளைத் திட்டமிடுதல் | Organizing district conferences, public assemblies, and welfare programs.'
+                ],
+                photo_url: '/vijayaragavan.png',
+                contact_details: {
+                  phone: '(Insert his Phone Number here)',
+                  email: '(Insert his Email Address here)',
+                },
+              }
+            }
             return lead
           })
-          setLeaders(mapped)
+          const withInsertedVijayaragavan = [...mapped]
+          const hasVijayaragavan = withInsertedVijayaragavan.some(
+            lead => lead.name?.includes('விஜயராகவன்') || lead.name?.toLowerCase().includes('vijayaragavan')
+          )
+          const bussyIdx = withInsertedVijayaragavan.findIndex(
+            lead => lead.name?.toLowerCase().includes('anand')
+          )
+          const kvIdx = withInsertedVijayaragavan.findIndex(
+            lead =>
+              lead.name?.toLowerCase().includes('damodharan') ||
+              lead.name?.toLowerCase().includes('dhamodharan') ||
+              lead.name?.toLowerCase().includes('royapuram')
+          )
+
+          if (!hasVijayaragavan) {
+            const vijayaragavanLead = {
+              id: 3,
+              name: 'கட்பீஸ் K. விஜயராகவன்',
+              designation: 'சென்னை வடக்கு (தெற்கு) மாவட்ட செயலாளர்',
+              description: 'கட்சியின் மாவட்ட கட்டமைப்பை வலுப்படுத்தி, சென்னை வடக்கு (தெற்கு) மாவட்டத்திற்குட்பட்ட அடிமட்ட தொண்டர்கள் வரை கொள்கைகளைக் கொண்டு சேர்க்கும் மக்கள் பணியில் அர்ப்பணிப்புடன் செயலாற்றுபவர். He works with absolute dedication to fortify district-level party infrastructure and expand grassroots mobilization across Chennai North (South) District.',
+              quote: 'சாதி, மத, இன பேதமற்ற சமத்துவ சமுதாயத்தை உருவாக்கி, மக்கள் நலன் சார்ந்த நேர்மையான, தூய்மையான மற்றும் மதச்சார்பற்ற அரசியலை நிலைநிறுத்துவதே நமது இலக்கு! Our goal is to establish an egalitarian society free of caste and religious barriers, ensuring transparent, clean, and secular governance focused entirely on people\'s welfare.',
+              responsibilities: [
+                'சென்னை வடக்கு (தெற்கு) மாவட்டக் கட்டமைப்பை நிர்வகித்தல் | Managing Chennai North (South) district-level party infrastructure and administration.',
+                '3 பகுதி செயலாளர்கள், 7 வட்ட தலைவர்கள் மற்றும் 23 அணிகளின் ஒருங்கிணைப்பு | Coordinating and guiding 3 Area Secretaries, 7 Ward Chairmen, and 23 Party Wings.',
+                'மாவட்ட அளவிலான மாநாடுகள் மற்றும் மக்கள் நலப் பணிகளைத் திட்டமிடுதல் | Organizing district conferences, public assemblies, and welfare programs.'
+              ],
+              photo_url: '/vijayaragavan.png',
+              contact_details: {
+                phone: '(Insert his Phone Number here)',
+                email: '(Insert his Email Address here)',
+              },
+            }
+
+            if (bussyIdx !== -1 && kvIdx !== -1 && bussyIdx < kvIdx) {
+              withInsertedVijayaragavan.splice(bussyIdx + 1, 0, vijayaragavanLead)
+            } else {
+              withInsertedVijayaragavan.splice(2, 0, vijayaragavanLead)
+            }
+          }
+
+          setLeaders(withInsertedVijayaragavan)
         }
         setLoading(false)
       })
@@ -757,8 +835,8 @@ export default function About() {
       })
   }, [])
 
-  // Slicing to first 3 items to completely hide the 4th card
-  const activeLeaders = leaders.slice(0, 3)
+  // Keep hero + next three leadership cards
+  const activeLeaders = leaders.slice(0, 4)
   const [heroLeader, ...restLeaders] = activeLeaders
 
   return (
