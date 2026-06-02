@@ -18,7 +18,7 @@ export default function StudentIssues() {
     description: '',
   })
   
-  const [isAnonymous, setIsAnonymous] = useState(false)
+  const isAnonymous = true
   const [isUrgent, setIsUrgent] = useState(false)
   const [file, setFile] = useState(null)
   const [filePreview, setFilePreview] = useState(null)
@@ -154,7 +154,6 @@ export default function StudentIssues() {
             onClick={() => {
               setSubmitted(false)
               setForm({ institution: '', category: '', description: '' })
-              setIsAnonymous(false)
               setIsUrgent(false)
               removeFile()
             }}
@@ -198,38 +197,7 @@ export default function StudentIssues() {
         {/* Main Light Glass Form Container */}
         <form onSubmit={handleSubmit} className="card bg-white border border-[#e6dfd0] p-6 sm:p-10 text-left space-y-6 shadow-sm">
           
-          {/* Anonymity Stealth Switch */}
-          <div 
-            className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-xl border gap-4 transition-all duration-300"
-            style={{ 
-              backgroundColor: isAnonymous ? 'rgba(142, 142, 147, 0.03)' : '#fcfaf6', 
-              borderColor: isAnonymous ? 'rgba(142, 142, 147, 0.25)' : '#e6dfd0' 
-            }}
-          >
-            <div>
-              <h3 
-                className="font-bold text-sm uppercase tracking-wide flex items-center gap-2"
-                style={{ color: textAccentColor }}
-              >
-                <Shield size={15} />
-                {isAnonymous ? 'ரகசிய முறை செயலில் உள்ளது | Anonymous Stealth Mode Active' : 'சாதாரண முறை | Standard Identifiable Mode'}
-              </h3>
-              <p className="text-xs font-semibold text-gray-500 mt-1">
-                உங்கள் விவரங்கள் மறைக்கப்பட்டு பாதுகாப்பாக வைக்கப்படும். Your personal credentials will be completely masked.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => setIsAnonymous(!isAnonymous)}
-              className="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-300 ease-in-out focus:outline-none self-end sm:self-center"
-              style={{ backgroundColor: isAnonymous ? '#8e8e93' : '#800000' }}
-            >
-              <span
-                className="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-300 ease-in-out"
-                style={{ transform: isAnonymous ? 'translateX(20px)' : 'translateX(0)' }}
-              />
-            </button>
-          </div>
+
 
           {/* Urgent / Safety Checkbox Toggle */}
           <div 

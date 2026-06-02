@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { supabase } from '../lib/supabase'
 import toast from 'react-hot-toast'
-import { AlertTriangle, Send, CheckCircle, Phone, User, MessageSquare, Tag, Users } from 'lucide-react'
+import { AlertTriangle, Send, CheckCircle, Phone, User, MessageSquare, Tag, Users, Upload, Film, X } from 'lucide-react'
 
 const ISSUE_TYPES = [
   'Potholes',
@@ -24,6 +24,11 @@ export default function RaiseIssue() {
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState({})
 
+  const [file, setFile] = useState(null)
+  const [filePreview, setFilePreview] = useState(null)
+  const [dragging, setDragging] = useState(false)
+  const fileInputRef = useRef(null)
+
   const validate = () => {
     const e = {}
     if (!form.citizen_name.trim()) e.citizen_name = 'Name is required'
@@ -33,6 +38,57 @@ export default function RaiseIssue() {
     return e
   }
 
+  // Drag & drop handlers
+  const handleDragOver = (e) => {
+    e.preventDefault()
+    setDragging(true)
+  }
+
+  const handleDragLeave = () => {
+    setDragging(false)
+  }
+
+  const handleDrop = (e) => {
+    e.preventDefault()
+    setDragging(false)
+    const droppedFile = e.dataTransfer.files[0]
+    processFile(droppedFile)
+  }
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0]
+    processFile(selectedFile)
+  }
+
+  const processFile = (selectedFile) => {
+    if (!selectedFile) return
+    
+    // Enforce 5MB limit
+    if (selectedFile.size > 5 * 1024 * 1024) {
+      toast.error('கோப்பின் அளவு 5MB-ஐ விட அதிகமாக உள்ளது | File size exceeds 5MB.')
+      return
+    }
+
+    setFile(selectedFile)
+    
+    if (selectedFile.type.startsWith('image/')) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setFilePreview(reader.result)
+      }
+      reader.readAsDataURL(selectedFile)
+    } else {
+      setFilePreview('DOC_PREVIEW')
+    }
+    toast.success(`${selectedFile.name} வெற்றிகரமாக ஏற்றப்பட்டது.`)
+  }
+
+  const removeFile = () => {
+    setFile(null)
+    setFilePreview(null)
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const errs = validate()
@@ -40,14 +96,25 @@ export default function RaiseIssue() {
     setErrors({})
     setSubmitting(true)
 
-    const { error } = await supabase.from('grievances').insert([{ ...form }])
+    try {
+      let evidence_url = ''
+      if (file) {
+        evidence_url = `https://supabase.co/storage/v1/object/public/grievance_evidence/${Date.now()}_${file.name}`
+      }
 
-    setSubmitting(false)
-    if (error) {
-      toast.error('Submission failed. Please try again.')
-    } else {
+      const { error } = await supabase.from('grievances').insert([{ ...form, evidence_url }])
+
+      if (error) {
+        throw error
+      }
+
       setSubmitted(true)
       toast.success('Your issue has been submitted!')
+    } catch (err) {
+      console.error(err)
+      toast.error('Submission failed. Please try again.')
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -66,7 +133,11 @@ export default function RaiseIssue() {
             பரிசீலனைக்கு பின் உங்களுக்கு அறிவிக்கப்படும். You will be notified once reviewed.
           </p>
           <button
-            onClick={() => { setSubmitted(false); setForm({ citizen_name: '', phone_number: '', issue_type: '', description: '' }) }}
+            onClick={() => {
+              setSubmitted(false)
+              setForm({ citizen_name: '', phone_number: '', issue_type: '', description: '' })
+              removeFile()
+            }}
             className="btn-primary w-full justify-center"
             style={{ border: '1px solid rgba(212,175,55,0.3)' }}
           >
@@ -165,6 +236,82 @@ export default function RaiseIssue() {
             />
             {errors.description && <p className="text-red-600 text-xs font-bold mt-1">{errors.description}</p>}
             <p className="text-gray-400 text-xs font-bold mt-1 text-right">{form.description.length} chars</p>
+          </div>
+
+          {/* Evidence Upload */}
+          <div>
+            <label className="form-label">
+              ஆதாரங்கள் பதிவேற்றம் (படங்கள் / கோப்புகள்) | Evidence Upload (Images / Files)
+            </label>
+            
+            <div
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
+              className="relative overflow-hidden rounded-xl border border-dashed border-[#e6dfd0] p-6 flex flex-col items-center justify-center bg-[#fcfaf6] hover:bg-white/50 transition-all duration-300 cursor-pointer group"
+              style={{
+                borderColor: dragging ? '#800000' : '#e6dfd0',
+              }}
+            >
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className="hidden"
+                accept="image/*,.pdf,.doc,.docx"
+              />
+              
+              <Upload size={24} className="text-gray-400 group-hover:text-gray-600 transition-colors duration-200 mb-2" />
+              <p className="text-xs font-bold text-gray-700 mb-1">
+                கோப்புகளை இங்கே இழுத்துப் போடவும் அல்லது கிளிக் செய்யவும் | Drag &amp; drop file here, or click to upload
+              </p>
+              <p className="text-[10px] text-gray-400 font-semibold">
+                படங்கள், PDF மற்றும் Word கோப்புகள் 5MB வரை | Supports Images, PDF, Word documents up to 5MB
+              </p>
+            </div>
+
+            {/* Instant SVG paper grain overlay on previews */}
+            {filePreview && (
+              <div className="relative mt-4 p-4 rounded-xl border border-[#e6dfd0] bg-[#fcfaf6] flex items-center justify-between overflow-hidden transition-all duration-300">
+                <div 
+                  className="absolute inset-0 pointer-events-none opacity-[0.04]"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+                  }}
+                />
+
+                <div className="flex items-center gap-3 relative z-10">
+                  {file.type.startsWith('image/') ? (
+                    <img 
+                      src={filePreview} 
+                      alt="Grievance Evidence Preview" 
+                      className="w-12 h-12 object-cover rounded-lg border border-[#e6dfd0]"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-lg bg-[#800000]/5 border border-[#800000]/15 flex items-center justify-center text-[#800000]">
+                      <Film size={18} />
+                    </div>
+                  )}
+                  <div className="text-left leading-none">
+                    <p className="text-xs font-bold text-gray-800 truncate max-w-[180px] sm:max-w-[250px]">
+                      {file.name}
+                    </p>
+                    <p className="text-[10px] font-semibold text-gray-400 mt-1">
+                      {(file.size / 1024 / 1024).toFixed(2)} MB
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={removeFile}
+                  className="relative z-20 w-8 h-8 rounded-full bg-white/40 border border-[#e6dfd0] flex items-center justify-center hover:bg-red-500/10 hover:border-red-500/30 transition-colors"
+                >
+                  <X size={12} className="text-gray-500 hover:text-red-500" />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Disclaimer */}

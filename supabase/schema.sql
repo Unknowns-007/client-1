@@ -112,6 +112,7 @@ CREATE TABLE IF NOT EXISTS public.grievances (
                   'Garbage Collection', 'Drainage', 'Public Parks', 'Other'
                 )),
   description   TEXT NOT NULL,
+  evidence_url  TEXT,
   status        TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'accepted')),
   created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

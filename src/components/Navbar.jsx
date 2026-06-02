@@ -10,7 +10,6 @@ const navLinks = [
   { to: '/blog', label: 'Blog' },
   { to: '/blood', label: 'Blood' },
   { to: '/student-issues', label: 'Student Issues' },
-  { to: '/raise-issue', label: 'Raise Issue' },
 ]
 
 export default function Navbar() {

@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext'
 import toast from 'react-hot-toast'
 import {
   Flame, LogOut, LayoutDashboard, Droplets, AlertTriangle,
-  CheckCircle, Clock, Phone, User, RefreshCw, Save
+  CheckCircle, Clock, Phone, User, RefreshCw, Save, FileText
 } from 'lucide-react'
 
 const BLOOD_GROUPS = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
@@ -127,6 +127,19 @@ function GrievancesPanel() {
                     }
                   </div>
                   <p className="text-gray-700 font-medium text-sm leading-relaxed line-clamp-2">{g.description}</p>
+                  {g.evidence_url && (
+                    <div className="mt-2">
+                      <a
+                        href={g.evidence_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-tvk-red hover:underline"
+                      >
+                        <FileText size={13} />
+                        View Evidence / ஆதார ஆவணம்
+                      </a>
+                    </div>
+                  )}
                   <p className="text-gray-500 font-bold text-xs mt-2">
                     {new Date(g.created_at).toLocaleString('en-IN')}
                   </p>
