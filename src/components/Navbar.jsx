@@ -9,7 +9,6 @@ const navLinks = [
   { to: '/events', label: 'Events' },
   { to: '/blog', label: 'Blog' },
   { to: '/blood', label: 'Blood' },
-  { to: '/student-issues', label: 'Student Issues' },
 ]
 
 export default function Navbar() {

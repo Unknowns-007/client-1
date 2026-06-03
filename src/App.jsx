@@ -12,7 +12,6 @@ import Events from './pages/Events'
 import Blog from './pages/Blog'
 import BloodAvailability from './pages/BloodAvailability'
 import RaiseIssue from './pages/RaiseIssue'
-import StudentIssues from './pages/StudentIssues'
 import Login from './pages/Login'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import { AuthProvider } from './context/AuthContext'
@@ -60,7 +59,6 @@ export default function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/blood" element={<BloodAvailability />} />
               <Route path="/raise-issue" element={<RaiseIssue />} />
-              <Route path="/student-issues" element={<StudentIssues />} />
               <Route path="/login" element={<Login />} />
               <Route
                 path="/admin"
